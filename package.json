@@ -9,12 +9,16 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "migrateh": "heroku run knex migrate:latest -a contact-server",
-    "rollbackh": "heroku run knex migrate:rollback -a contact-server",
-    "databaseh": "heroku pg:psql -a contact-server",
-    "seedh": "heroku run knex seed:run -a contact-server",
+    "migrateh": "heroku run knex migrate:latest -a contact-server-dv",
+    "rollbackh": "heroku run knex migrate:rollback -a contact-server-dv",
+    "databaseh": "heroku pg:psql -a contact-server-dv",
+    "seedh": "heroku run knex seed:run -a contact-server-dv",
     "test": "jest --watch --verbose --runInBand",
     "deploy": "git push heroku main"
+  },
+  "engines": {
+    "node": "14.15.4",
+    "npm": "6.14.15"
   },
   "repository": {
     "type": "git",
