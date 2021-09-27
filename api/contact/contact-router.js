@@ -24,10 +24,10 @@ router.post('/contact', (req, res) => {
   const email = req.body.email;
   const message = req.body.message;
   const phone = req.body.phone;
-
+  
   const mail = {
     from: name,
-    to: process.env.USER,
+    to: process.env.EMAIL,
     subject: 'Contact Form Submission',
     html: `<p>From: ${name}</h4>
            <p>Email: ${email}</p>
@@ -36,7 +36,7 @@ router.post('/contact', (req, res) => {
   }
 
   const reply = {
-    from: process.env.USER,
+    from: process.env.EMAIL,
     to: email,
     subject: 'Submission was successful!',
     html: `Thank you for contacting me ${name}, I will get back to you as soon as I can!`,
@@ -44,7 +44,8 @@ router.post('/contact', (req, res) => {
 
   contactEmail.sendMail(mail, (error) => {
     if (error) {
-      res.json({ status: 'Error sending message' });
+      console.log("error!", error.message)
+      res.status(400).json({ status: 'Error sending email to client' });
     } else {
       res.json({ status: 'Message Sent!' });
     }
@@ -52,7 +53,7 @@ router.post('/contact', (req, res) => {
 
   contactEmail.sendMail(reply, (error) => {
     if (error) {
-      res.json({ status: 'Error sending reply email' });
+      res.status(500).json({ status: 'Error sending reply email back to sender' });
     } else {
       res.json({ status: 'Reply email successful!' });
     }
